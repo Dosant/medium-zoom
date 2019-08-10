@@ -2,7 +2,6 @@
 /coverage
 /cypress/screenshots
 /cypress/videos
-/dist
 /storybook
 
 .DS_Store
