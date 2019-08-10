@@ -26,11 +26,15 @@ const mediumZoom = (selector, options = {}) => {
       return
     }
 
-    if (images.indexOf(target) === -1) {
+    const imageToToggle = images.find(
+      image => image === target || image.contains(target)
+    )
+
+    if (!imageToToggle) {
       return
     }
 
-    toggle({ target })
+    toggle({ target: imageToToggle })
   }
 
   const _handleScroll = () => {
@@ -300,12 +304,6 @@ const mediumZoom = (selector, options = {}) => {
         return
       }
 
-      active.original.dispatchEvent(
-        createCustomEvent('medium-zoom:open', {
-          detail: { zoom },
-        })
-      )
-
       scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
@@ -313,6 +311,12 @@ const mediumZoom = (selector, options = {}) => {
         0
       isAnimating = true
       active.zoomed = cloneTarget(active.original)
+
+      active.original.dispatchEvent(
+        createCustomEvent('medium-zoom:open', {
+          detail: { zoom, zoomContainer: active.zoomed },
+        })
+      )
 
       document.body.appendChild(overlay)
 

@@ -1,4 +1,4 @@
-export const isSupported = node => node.tagName === 'IMG'
+export const isSupported = node => node.tagName === 'IMG' || true
 
 /* eslint-disable-next-line no-prototype-builtins */
 export const isNodeList = selector => NodeList.prototype.isPrototypeOf(selector)
@@ -6,7 +6,7 @@ export const isNodeList = selector => NodeList.prototype.isPrototypeOf(selector)
 export const isNode = selector => selector && selector.nodeType === 1
 
 export const isSvg = image => {
-  const source = image.currentSrc || image.src
+  const source = image.currentSrc || image.src || ''
   return source.substr(-4).toLowerCase() === '.svg'
 }
 
